@@ -1,154 +1,307 @@
-= image:https://kroki.io/assets/logo.svg[Kroki,200,link={uri-kroki}]
-:uri-kroki: https://kroki.io/
-:uri-kroki-docs: https://docs.kroki.io/
-:uri-maven: https://maven.apache.org/
-
-ifdef::env-github[]
-image:https://github.com/yuzutech/kroki/workflows/CI/badge.svg?branch=master[GitHub Actions build status, link=https://github.com/yuzutech/kroki/actions]
-image:https://img.shields.io/badge/zulip-join_chat-brightgreen.svg[Zulip chat, link=https://kroki.zulipchat.com/]
-endif::[]
-
-{uri-kroki}[Kroki] provides a unified API with support for BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag, PacketDiag, RackDiag), BPMN, Bytefield, C4 (with PlantUML), D2, DBML, Diagrams.net (experimental), Ditaa, Erd, Excalidraw, GraphViz, Mermaid, Nomnoml, Pikchr, PlantUML, SvgBob, Symbolator, UMLet, Vega, Vega-Lite, WaveDrom and WireViz... and more to come!
-
-== Quickstart
-
-This section offers a basic tutorial for evaluating Kroki.
-More comprehensive installation instructions are in the {uri-kroki-docs}[Kroki documentation].
-
-== Usage
-
-Kroki uses a simple algorithm (deflate + base64) to encode your diagram in the URL:
-
-`GET /plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000`
-
-You can also call Kroki with `POST`:
-
- POST /
-
-[source,json]
-----
-{
-  "diagram_source": "Bob -> Alice : hello",
-  "diagram_type": "plantuml",
-  "output_format": "svg"
-}
-----
-
-In this case, you don't need to encode your diagram.
-
-It's also possible to send your diagram as plain text using the `Content-Type` header.
-The output format will be specified using the `Accept` header and the diagram source will be sent as the request body:
-
- POST /plantuml
-
-[source]
-----
-Accept: image/svg+xml
+<div class="Box-sc-g0xbh4-0 bJMeLZ js-snippet-clipboard-copy-unpositioned" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto"><span><a href="https://kroki.io/" rel="nofollow"><img src="https://camo.githubusercontent.com/88d4b5b372f46e58b0880e21296bb2fe9dd0d1f5ddfe3d75672ab3c4f1686053/68747470733a2f2f6b726f6b692e696f2f6173736574732f6c6f676f2e737667" alt="克罗基" width="200" data-canonical-src="https://kroki.io/assets/logo.svg" style="max-width: 100%;"></a></span></h1><a id="" class="anchor" aria-label="固定链接：" href="#"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div id="user-content-preamble" dir="auto">
+<div dir="auto">
+<div dir="auto">
+<p dir="auto"><span><a href="https://github.com/yuzutech/kroki/actions"><img src="https://github.com/yuzutech/kroki/workflows/CI/badge.svg?branch=master" alt="GitHub Actions 构建状态" style="max-width: 100%;"></a></span>
+<span><a href="https://kroki.zulipchat.com/" rel="nofollow"><img src="https://camo.githubusercontent.com/f075ed3a1bcc7bc6d681d5b1b96c7235827bcfa73790e55a1c98bf969736b4e9/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f7a756c69702d6a6f696e5f636861742d627269676874677265656e2e737667" alt="祖利普聊天" data-canonical-src="https://img.shields.io/badge/zulip-join_chat-brightgreen.svg" style="max-width: 100%;"></a></span></p>
+</div>
+<div dir="auto">
+<p dir="auto"><a href="https://kroki.io/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Kroki</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供了统一的 API，支持 BlockDiag（BlockDiag、SeqDiag、ActDiag、NwDiag、PacketDiag、RackDiag）、BPMN、Bytefield、C4（带有 PlantUML）、D2、DBML、Diagrams.net（实验性）、Ditaa、Erd、Excalidraw、GraphViz、Mermaid、Nomnoml、Pikchr、PlantUML、SvgBob、Symbolator、UMLet、Vega、Vega-Lite、WaveDrom 和 WireViz……未来还将支持更多功能！</font></font></p>
+</div>
+</div>
+</div>
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h2 id="user-content-quickstart" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">快速开始</font></font></h2><a id="user-content-quickstart" class="anchor" aria-label="永久链接：快速入门" href="#quickstart"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本节提供评估 Kroki 的基本教程。更全面的安装说明请参阅</font></font><a href="https://docs.kroki.io/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Kroki 文档</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+</div>
+</div>
+</div>
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h2 id="user-content-usage" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用法</font></font></h2><a id="user-content-usage" class="anchor" aria-label="永久链接：用法" href="#usage"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Kroki 使用简单的算法 (deflate + base64) 在 URL 中对图表进行编码：</font></font></p>
+</div>
+<div dir="auto">
+<p dir="auto"><code>GET /plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000</code></p>
+</div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您还可以通过以下方式致电 Kroki </font></font><code>POST</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">邮政 /</font></font></pre>
+</div>
+</div>
+<div dir="auto">
+<div dir="auto">
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto"><pre>{
+  <span class="pl-ent">"diagram_source"</span>: <span class="pl-s"><span class="pl-pds">"</span>Bob -&gt; Alice : hello<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"diagram_type"</span>: <span class="pl-s"><span class="pl-pds">"</span>plantuml<span class="pl-pds">"</span></span>,
+  <span class="pl-ent">"output_format"</span>: <span class="pl-s"><span class="pl-pds">"</span>svg<span class="pl-pds">"</span></span>
+}</pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="{
+  &quot;diagram_source&quot;: &quot;Bob -> Alice : hello&quot;,
+  &quot;diagram_type&quot;: &quot;plantuml&quot;,
+  &quot;output_format&quot;: &quot;svg&quot;
+}" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+</div>
+</div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">在这种情况下，您不需要对图表进行编码。</font></font></p>
+</div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您还可以使用</font></font><code>Content-Type</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标头以纯文本形式发送图表。输出格式将使用</font></font><code>Accept</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">标头指定，图表源将作为请求正文发送：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">POST /plantuml</font></font></pre>
+</div>
+</div>
+<div dir="auto">
+<div dir="auto">
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>Accept: image/svg+xml
 Content-Type: text/plain
 
-Bob -> Alice : hello
-----
-
-You can also define the output format in the URL if you don't want to add an `Accept` header:
-
- POST /plantuml/svg
-
-[source]
-----
+Bob -&gt; Alice : hello</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="Accept: image/svg+xml
 Content-Type: text/plain
 
-Bob -> Alice : hello
-----
+Bob -> Alice : hello" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+</div>
+</div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您不想添加标</font></font><code>Accept</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">头，还可以在 URL 中定义输出格式：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">POST /plantuml/svg</font></font></pre>
+</div>
+</div>
+<div dir="auto">
+<div dir="auto">
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>Content-Type: text/plain
 
-The same concept applies when sending the diagram as JSON:
+Bob -&gt; Alice : hello</code></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="Content-Type: text/plain
 
- POST /plantuml/svg
-[source,json]
-----
-{
-  "diagram_source": "Bob -> Alice : hello"
-}
-----
-
-== Project layout
-
-Kroki has a modular architecture:
-
-server::
-A Java web server (powered by _Vert.x_) that acts as a gateway.
-Kroki server is built using {uri-maven}[Maven].
-
-umlet::
-A tiny Java API on top of _UMlet_ (mini) to generate diagrams.
-
-nomnoml::
-A Node.js CLI on top of the _Nomnoml_ diagram library.
-
-vega::
-A Node.js CLI on top of the _vega_ diagram library. Also supports Vega-Lite concise grammar.
-
-mermaid::
-A companion web server written in JavaScript (powered by _micro_) that provides _Mermaid_ diagram library.
-
-bpmn::
-A companion web server written in JavaScript (powered by _micro_) that provides _bpmn-js_ diagram library.
-
-bytefield::
-A Node.js CLI on top of the _bytefield-svg_ diagram library.
-
-wavedrom::
-A Node.js CLI on top of the _wavedrom_ diagram library.
-
-excalidraw::
-A companion web server written in JavaScript (powered by _micro_) that provides _Excalidraw_.
-
-diagrams.net::
-A companion web server written in JavaScript (powered by _micro_) that provides _diagrams.net_.
-
-== Build
-
-=== Gateway Server
-
-The first step is to build the project using Maven:
-
- $ make buildServer
-
-=== Docker Images
-
-To build all the Docker images, use the following command:
-
- $ sudo make buildDockerImages
-
-NOTE: `sudo` might not be needed depending on your distribution and `docker` configuration.
-
-== Run
-
-Once the Docker images are built, you can run Kroki using `docker`:
-
- $ docker run -d -p 8000:8000 yuzutech/kroki
-
-=== Companion Containers
-
-If you want to use one of the following diagram libraries then you will also need to start the corresponding companion container:
-
-yuzutech/kroki-mermaid::
-Mermaid
-
-yuzutech/kroki-bpmn::
-BPMN
-
-yuzutech/kroki-excalidraw::
-Excalidraw
-
-yuzutech/kroki-diagramsnet (experimental)::
-diagrams.net
-
-You can use `docker-compose` to run multiple containers:
-
-.docker-compose.yml
-[source,yml]
-----
-services:
+Bob -> Alice : hello" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+</div>
+</div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">当以 JSON 形式发送图表时，同样的概念也适用：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">POST /plantuml/svg</font></font></pre>
+</div>
+</div>
+<div dir="auto">
+<div dir="auto">
+<div class="highlight highlight-source-json notranslate position-relative overflow-auto" dir="auto"><pre>{
+  <span class="pl-ent">"diagram_source"</span>: <span class="pl-s"><span class="pl-pds">"</span>Bob -&gt; Alice : hello<span class="pl-pds">"</span></span>
+}</pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="{
+  &quot;diagram_source&quot;: &quot;Bob -> Alice : hello&quot;
+}" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+</div>
+</div>
+</div>
+</div>
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h2 id="user-content-project-layout" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">项目布局</font></font></h2><a id="user-content-project-layout" class="anchor" aria-label="永久链接：项目布局" href="#project-layout"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Kroki 具有模块化架构：</font></font></p>
+</div>
+<div dir="auto">
+<dl>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">服务器</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">充当网关的</font><font style="vertical-align: inherit;">Java Web 服务器（由</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Vert.x提供支持）。Kroki 服务器是使用</font></font></em><font style="vertical-align: inherit;"></font><a href="https://maven.apache.org/" rel="nofollow"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Maven</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建的。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">乌姆莱特</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">UMlet</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">（迷你）</font><font style="vertical-align: inherit;">之上的小型 Java API，用于生成图表。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">名义</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nomnoml</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图库</font><font style="vertical-align: inherit;">之上的 Node.js CLI 。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">维加</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">vega</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图库</font><font style="vertical-align: inherit;">之上的 Node.js CLI 。</font><font style="vertical-align: inherit;">还支持Vega-Lite简洁语法。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">美人鱼</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用 JavaScript 编写的配套 Web 服务器（由</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">micro</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供支持），提供</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mermaid</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图表库。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">肺结核</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用 JavaScript 编写的配套 Web 服务器（由</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">micro</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供支持），提供</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">bpmn-js</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图表库。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">字节域</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">bytefield-svg</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图表库之上的 Node.js CLI </font><font style="vertical-align: inherit;">。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">波德罗姆</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Wavedrom</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图表库之上的 Node.js CLI </font><font style="vertical-align: inherit;">。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">外画</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用 JavaScript 编写的配套 Web 服务器（由</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">micro</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供支持），提供</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Excalidraw</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图表网</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用 JavaScript 编写的配套 Web 服务器（由</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">micro</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提供支持），提供</font></font><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">sketchs.net</font></font></em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">。</font></font></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h2 id="user-content-build" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">建造</font></font></h2><a id="user-content-build" class="anchor" aria-label="永久链接：构建" href="#build"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h3 id="user-content-gateway-server" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">网关服务器</font></font></h3><a id="user-content-gateway-server" class="anchor" aria-label="永久链接：网关服务器" href="#gateway-server"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">第一步是使用 Maven 构建项目：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$ 构建服务器</font></font></pre>
+</div>
+</div>
+</div>
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h3 id="user-content-docker-images" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Docker 镜像</font></font></h3><a id="user-content-docker-images" class="anchor" aria-label="永久链接：Docker 镜像" href="#docker-images"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">要构建所有 Docker 映像，请使用以下命令：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$ sudo make buildDockerImages</font></font></pre>
+</div>
+</div>
+<div dir="auto">
+<table>
+<tbody><tr>
+<td>
+<div dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">笔记</font></font></div>
+</td>
+<td>
+<code>sudo</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">可能不需要，具体取决于您的发行版和</font></font><code>docker</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配置。
+</font></font></td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+</div>
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h2 id="user-content-run" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">跑步</font></font></h2><a id="user-content-run" class="anchor" aria-label="永久链接： 运行" href="#run"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">构建 Docker 镜像后，您可以使用以下命令运行 Kroki </font></font><code>docker</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$ docker run -d -p 8000:8000 yuzutech/kroki</font></font></pre>
+</div>
+</div>
+<div dir="auto">
+<div class="markdown-heading" dir="auto"><h3 id="user-content-companion-containers" tabindex="-1" class="heading-element" dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">配套容器</font></font></h3><a id="user-content-companion-containers" class="anchor" aria-label="永久链接：配套容器" href="#companion-containers"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">如果您想使用以下图表库之一，那么您还需要启动相应的配套容器：</font></font></p>
+</div>
+<div dir="auto">
+<dl>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">柚子科技/kroki-美人鱼</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">美人鱼</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">柚子科技/kroki-bpmn</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">业务流程管理模型</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">柚子科技/kroki-excalidraw</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Excalidraw</font></font></p>
+</dd>
+<dt><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">yuzutech/kroki-diagramsnet（实验性）</font></font></dt>
+<dd>
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">图表网</font></font></p>
+</dd>
+</dl>
+</div>
+<div dir="auto">
+<p dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">您可以使用</font></font><code>docker-compose</code><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">来运行多个容器：</font></font></p>
+</div>
+<div dir="auto">
+<div dir="auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">docker-compose.yml</font></font></div>
+<div dir="auto">
+<div class="highlight highlight-source-yaml notranslate position-relative overflow-auto" dir="auto"><pre><span class="pl-ent">services</span>:
+  <span class="pl-ent">core</span>:
+    <span class="pl-ent">image</span>: <span class="pl-s">yuzutech/kroki</span>
+    <span class="pl-ent">environment</span>:
+      - <span class="pl-s">KROKI_MERMAID_HOST=mermaid</span>
+      - <span class="pl-s">KROKI_BPMN_HOST=bpmn</span>
+      - <span class="pl-s">KROKI_EXCALIDRAW_HOST=excalidraw</span>
+    <span class="pl-ent">ports</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>8000:8000<span class="pl-pds">"</span></span>
+  <span class="pl-ent">mermaid</span>:
+    <span class="pl-ent">image</span>: <span class="pl-s">yuzutech/kroki-mermaid</span>
+    <span class="pl-ent">expose</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>8002<span class="pl-pds">"</span></span>
+  <span class="pl-ent">bpmn</span>:
+    <span class="pl-ent">image</span>: <span class="pl-s">yuzutech/kroki-bpmn</span>
+    <span class="pl-ent">expose</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>8003<span class="pl-pds">"</span></span>
+  <span class="pl-ent">excalidraw</span>:
+    <span class="pl-ent">image</span>: <span class="pl-s">yuzutech/kroki-excalidraw</span>
+    <span class="pl-ent">expose</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>8004<span class="pl-pds">"</span></span>
+  <span class="pl-c"><span class="pl-c">#</span> experimental!</span>
+  <span class="pl-ent">diagramsnet</span>:
+    <span class="pl-ent">image</span>: <span class="pl-s">yuzutech/kroki-diagramsnet</span>
+    <span class="pl-ent">expose</span>:
+      - <span class="pl-s"><span class="pl-pds">"</span>8005<span class="pl-pds">"</span></span></pre><div class="zeroclipboard-container">
+    <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 tooltipped-no-delay d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="services:
   core:
     image: yuzutech/kroki
     environment:
@@ -156,24 +309,39 @@ services:
       - KROKI_BPMN_HOST=bpmn
       - KROKI_EXCALIDRAW_HOST=excalidraw
     ports:
-      - "8000:8000"
+      - &quot;8000:8000&quot;
   mermaid:
     image: yuzutech/kroki-mermaid
     expose:
-      - "8002"
+      - &quot;8002&quot;
   bpmn:
     image: yuzutech/kroki-bpmn
     expose:
-      - "8003"
+      - &quot;8003&quot;
   excalidraw:
     image: yuzutech/kroki-excalidraw
     expose:
-      - "8004"
+      - &quot;8004&quot;
   # experimental!
   diagramsnet:
     image: yuzutech/kroki-diagramsnet
     expose:
-      - "8005"
-----
-
- $ docker-compose up -d
+      - &quot;8005&quot;" tabindex="0" role="button">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-copy js-clipboard-copy-icon">
+    <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
+</svg>
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-check js-clipboard-check-icon color-fg-success d-none">
+    <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+</svg>
+    </clipboard-copy>
+  </div></div>
+</div>
+</div>
+<div dir="auto">
+<div dir="auto">
+<pre><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">$ docker-compose up -d</font></font></pre>
+</div>
+</div>
+</div>
+</div>
+</div></article></div>
